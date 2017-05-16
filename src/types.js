@@ -22,6 +22,7 @@ export type Project = {
   id: string,
   title: string,
   person: string,
+  tentative: boolean,
   time: string,
   progress: number,
   status: Status,

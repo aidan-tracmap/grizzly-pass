@@ -2,6 +2,7 @@
   position: relative;
   height: 25px;
   background: #aaa;
+  margin-top: 7px;
 }
 
 .ProgressBar-text {

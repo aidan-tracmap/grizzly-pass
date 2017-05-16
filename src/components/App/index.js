@@ -4,11 +4,11 @@ import { flow } from "lodash";
 import React from "react";
 import { connect } from "react-redux";
 import type { Dispatch } from "redux";
-import { loadProjectJsonSuccess, loadProjectJsonFailure } from "../../actions";
+import { loadProjectJsonSuccess, loadProjectJsonFailure, loadAllData } from "../../actions";
 import { importFile } from "../../import";
 import type { State } from "../../reducer";
 import { getProjectIdsByMonth } from "../../reducer";
-import { map, mapErr } from "../../result";
+import { map, mapErr, isOk } from "../../result";
 import type { TabId } from "../../types";
 import Card from "../Card";
 import Header from "../Header";
@@ -17,7 +17,7 @@ import SideMenu from "../SideMenu";
 import "./App.css";
 
 const importProject = (
-  readFileAsText: File => Promise<string>,
+  readFileAsText: (File) => Promise<string>,
   file: File
 ) => async (dispatch: Dispatch<*>) => {
   const asText = await readFileAsText(file);
@@ -32,14 +32,16 @@ type AppProps = {
   projectsByMonth: { month: string, projectIds: string[] }[],
   errorMessage: ?(string | string[]),
   selectedTab: ?TabId,
-  importFile: File => void
+  importFile: (File) => void,
+  loadData: (Object) => void
 };
 
 export function AppPresentation({
   projectsByMonth,
   errorMessage,
   selectedTab,
-  importFile
+  importFile,
+  loadData
 }: AppProps) {
   const months = projectsByMonth.map(({ month, projectIds }) => {
     const cards = projectIds.map(projectId => (
@@ -57,10 +59,12 @@ export function AppPresentation({
 
   const hasProjects = !!projectsByMonth.length;
 
+  //const loadData = this.props.loadDataIntoStore
+
   return (
     <div
       className="App"
-      onDrop={e => handleDrop(importFile, e)}
+      onDrop={e => handleDrop(importFile, e, loadData)}
       onDragOver={handleDragOver}
     >
       <div className="App-sideMenu">
@@ -83,7 +87,8 @@ export function AppPresentation({
 
 export function mapStateToProps(state: State) {
   return {
-    projectsByMonth: getProjectIdsByMonth(state)
+    projectsByMonth: getProjectIdsByMonth(state),
+    importFile
   };
 }
 
@@ -92,7 +97,11 @@ function mapDispatchToProps(
   { readFileAsText }: { readFileAsText: File => Promise<string> }
 ) {
   return {
-    importProject: (file: File) => dispatch(importProject(readFileAsText, file))
+    importProject: (file: File) => dispatch(importProject(readFileAsText, file)),
+    loadData: (data: Object) => {
+      console.log("Loading this sucker...");
+      dispatch(loadAllData(data));
+    }
   };
 }
 
@@ -103,17 +112,44 @@ function handleDragOver(e: Event) {
   e.preventDefault();
 }
 
-function handleDrop(importFile: File => void, e: DragEvent) {
+function handleDrop(importFile: File => void, e: DragEvent, loadData: Object => void) {
+  console.log("file", e.dataTransfer);
   e.preventDefault();
   const dt = e.dataTransfer;
   if (dt && dt.items) {
+    console.log("got some items");
     const item = Array.prototype.find.call(
       dt.items,
       ({ kind }) => kind === "file"
     );
-    if (item) importFile(item.getAsFile());
-  } else if (dt && dt.files.length) {
-    importFile(dt.files[0]);
+    if (item) {
+      console.log("Sending it off to importFile", importFile);
+      /*item.getAsString(importFile);*/
+
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        console.log("Reader finished...");
+
+        const newData = e.target.result;
+        console.log("Importing data...");
+
+        var parsedData = importFile(newData);
+        console.log(parsedData.value);
+
+        if (isOk(parsedData)) {
+          loadData(parsedData.value);
+        } else {
+          console.log("parsed data is bad");
+        }
+      }
+
+      reader.readAsText(item.getAsFile());
+
+    }
+    else
+      console.log("No item found");
+  } else {
+    console.log("no files");
   }
 }
 

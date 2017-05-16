@@ -9,12 +9,12 @@ import type { TabId } from "../../types";
 import "./SideMenu.css";
 
 const buttons: { tabId: TabId, text: string }[] = [
-  { tabId: "edit", text: "Edit" }
+  // { tabId: "edit", text: "Edit" }
 ];
 
 type SideMenuProps = {
   selectTab: ?TabId => void,
-  selectedTab: ?TabId
+    selectedTab: ?TabId
 };
 
 export function SideMenuPresentation({

@@ -12,9 +12,9 @@ export type { Label, Project };
 export type State = {
   +title: ?string,
   +selectedTab: ?TabId,
-  +projects: Project[],
-  +labels: Label[],
-  +errorMessage: ?(string | string[])
+    +projects: Project[],
+      +labels: Label[],
+        +errorMessage: ?(string | string[])
 };
 
 const reducer = combineReducers({
@@ -27,7 +27,7 @@ const reducer = combineReducers({
 export default reducer;
 
 function title(title: ?string = null, action: Action): ?string {
-  if (action.type === "LOAD_DEMO_DATA") return "Demo Dashboard";
+  if (action.type === "LOAD_DEMO_DATA") return "TracMap Roadmap";
   else return title;
 }
 function selectedTab(selectedTab: ?TabId = null, action: Action): ?TabId {
@@ -37,6 +37,10 @@ function selectedTab(selectedTab: ?TabId = null, action: Action): ?TabId {
 
 function projects(projects: Project[] = [], action: Action): Project[] {
   switch (action.type) {
+
+    case "LOAD_ALL_DATA":
+      return action.data.projects;
+
     case "LOAD_DEMO_DATA":
       return demoProjects;
 
@@ -61,6 +65,8 @@ function projects(projects: Project[] = [], action: Action): Project[] {
 
 function labels(labels: Label[] = [], action: Action): Label[] {
   switch (action.type) {
+    case "LOAD_ALL_DATA":
+      return action.data.labels;
     case "LOAD_DEMO_DATA":
       return demoLabels;
     case "LOAD_LABEL":
@@ -72,7 +78,7 @@ function labels(labels: Label[] = [], action: Action): Label[] {
 
 function errorMessage(
   errorMessage: ?(string | string[]) = null,
-  action: Action
+    action: Action
 ): ?(string | string[]) {
   return errorMessage;
 }

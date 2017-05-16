@@ -61,3 +61,13 @@
   line-height: 21px;
   color: #666;
 }
+
+
+.Card.isTentative {
+  border: 2px dashed rgba(0,0,0,0.3);
+  background: none;
+  box-shadow: none;
+}
+.Card.isTentative .Card-progress {
+  opacity: 0.5;
+}

@@ -24,7 +24,7 @@ export function LegendPresentation({ labels }: LegendProps) {
 
   return (
     <div className="Legend">
-      <div className="Legend-title">Legend:</div>
+      <div className="Legend-title">Teams:</div>
       <div className="Legend-labels">
         {labelElems}
       </div>

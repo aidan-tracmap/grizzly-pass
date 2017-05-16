@@ -2,7 +2,8 @@
   height: 100%;
   display: flex;
   flex-direction: row;
-  background: #fff;
+  background: #2f5d79;
+  color: white;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
 }
 

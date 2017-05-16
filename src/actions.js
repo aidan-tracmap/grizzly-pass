@@ -3,6 +3,16 @@
 import { uniqueId } from "lodash";
 import type { Project, Label, Status, TabId } from "./types";
 
+export type LoadAllData = { type: "LOAD_ALL_DATA" };
+export const loadAllData = (data: Object): LoadAllData => {
+  console.log("Created load all data action...");
+  return {
+    type: "LOAD_ALL_DATA",
+    data
+  }
+};
+
+
 export type LoadDemoData = { type: "LOAD_DEMO_DATA" };
 export const loadDemoData = (): LoadDemoData => ({
   type: "LOAD_DEMO_DATA"

@@ -10,7 +10,7 @@ export const projects: Project[] = [
     time: "2017-03-15T10:54:04.445Z",
     progress: 13,
     status: "ontrack",
-    labels: ["3"]
+    labels: ["TMOL"]
   },
   {
     id: "2",
@@ -18,18 +18,19 @@ export const projects: Project[] = [
     person: "Alex Apple",
     time: "2017-04-12T10:54:04.445Z",
     progress: 50,
+    tentative: true,
     status: "onhold",
-    labels: ["3", "4"]
+    labels: ["TMOL", "Em"]
   }
 ];
 
 export const labels: Label[] = [
   {
-    id: "3",
-    title: "Apple"
+    id: "TMOL",
+    title: "TracMap Online"
   },
   {
-    id: "4",
-    title: "Orange"
+    id: "Em",
+    title: "Embedded"
   }
 ];

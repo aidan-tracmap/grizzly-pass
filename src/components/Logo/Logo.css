@@ -1,5 +1,5 @@
 .Logo {
-  background: #fb7818;
+  background: #c3d945;
   color: #fff;
   display: flex;
   justify-content: center;
@@ -7,4 +7,7 @@
   font-weight: bold;
   font-size: 23px;
   height: 100%;
+
+  font-family: "AntiqueOliveNord";
+  font-weight: normal;
 }

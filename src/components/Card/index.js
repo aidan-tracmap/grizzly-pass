@@ -16,6 +16,7 @@ import "./Card.css";
 type CardProps = {
   readonly: boolean,
   project: Project,
+  tentative: boolean,
   labelInfo: LabelInfo[],
   updateProject: Project => void
 };
@@ -23,6 +24,7 @@ type CardProps = {
 export function CardPresentation({
   readonly,
   project,
+  tentative,
   labelInfo,
   updateProject
 }: CardProps) {
@@ -31,14 +33,14 @@ export function CardPresentation({
   const labelsDiv = !labelInfo.length
     ? null
     : <div className="Card-labels">
-        {labelInfo.map(labelInfo => (
-          <div key={labelInfo.id} className="Card-label">
-            <Label labelInfo={labelInfo} readonly={readonly} />
-          </div>
-        ))}
-      </div>;
+      {labelInfo.map(labelInfo => (
+        <div key={labelInfo.id} className="Card-label">
+          <Label labelInfo={labelInfo} readonly={readonly} />
+        </div>
+      ))}
+    </div>;
 
-  const className = ["Card", readonly && "isReadonly"].filter(f => f).join(" ");
+  const className = ["Card", readonly && "isReadonly", project.tentative && 'isTentative'].filter(f => f).join(" ");
 
   return (
     <div className={className}>

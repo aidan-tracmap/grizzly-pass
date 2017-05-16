@@ -29,7 +29,7 @@ type Output = {
 export function importFile(
   fileContents: string
 ): Result<Output, string | string[]> {
-  return flow(
+  const result = flow(
     parseFile,
     mapErr(e => `File ${e}`),
     andThen(
@@ -59,6 +59,9 @@ export function importFile(
       labels
     }))
   )(fileContents);
+  console.log("result!!!");
+  console.log(result);
+  return result;
 }
 
 export function validateProject(project: any): Result<ImportProject, string> {
@@ -96,6 +99,7 @@ export function validateProject(project: any): Result<ImportProject, string> {
 function parseFile(fileContents: string): Result<any[], string> {
   try {
     const asObj = JSON.parse(fileContents);
+    console.log(asObj);
     return isArray(asObj) ? ok(asObj) : err("isn't a JSON array");
   } catch (e) {
     return err("is not valid JSON");
