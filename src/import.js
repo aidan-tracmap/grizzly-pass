@@ -45,13 +45,14 @@ export function importFile(
     map(([projects, labels]) => ({
       title: null,
       projects: projects.map(project => {
-        const { title, person, health, progress, date, tags = [] } = project;
+        const { title, person, health, progress, tentative, date, tags = [] } = project;
         return {
           id: uniqueId(),
           title,
           person,
           status: health,
           progress,
+          tentative,
           time: moment(date, "YYYY-MM-DD").format(),
           labels: findLabelIds(labels, tags)
         };
@@ -102,7 +103,7 @@ function parseFile(fileContents: string): Result<any[], string> {
     console.log(asObj);
     return isArray(asObj) ? ok(asObj) : err("isn't a JSON array");
   } catch (e) {
-    return err("is not valid JSON");
+    return err("is not valid JSON ... " + e);
   }
 }
 

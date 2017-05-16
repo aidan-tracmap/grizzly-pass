@@ -3,6 +3,7 @@
 import type { Project, Label } from "./types";
 
 export const projects: Project[] = [
+  /*
   {
     id: "1",
     title: "Coffee Swirl",
@@ -22,12 +23,13 @@ export const projects: Project[] = [
     status: "onhold",
     labels: ["TMOL", "Em"]
   }
+  */
 ];
 
 export const labels: Label[] = [
   {
     id: "TMOL",
-    title: "TracMap Online"
+    title: "TMOL"
   },
   {
     id: "Em",

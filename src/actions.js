@@ -58,6 +58,7 @@ export const loadProject = (
   time: string,
   progress: number,
   status: Status,
+  tentative: boolean,
   labels: string[]
 ): LoadProject => ({
   type: "LOAD_PROJECT",
@@ -68,6 +69,7 @@ export const loadProject = (
     time,
     progress,
     status,
+    tentative,
     labels
   }
 });

@@ -61,6 +61,13 @@ export function AppPresentation({
 
   //const loadData = this.props.loadDataIntoStore
 
+  const appContent = errorMessage != null ?
+    formatErrors(errorMessage) :
+    (months.length ?
+      months :
+      "Drop a roadmap JSON file here."
+    );
+
   return (
     <div
       className="App"
@@ -74,7 +81,7 @@ export function AppPresentation({
         <Header />
       </div>
       <div className="App-content">
-        {errorMessage != null ? formatErrors(errorMessage) : months}
+        {appContent}
       </div>
       {hasProjects &&
         errorMessage === undefined &&
@@ -139,7 +146,7 @@ function handleDrop(importFile: File => void, e: DragEvent, loadData: Object => 
         if (isOk(parsedData)) {
           loadData(parsedData.value);
         } else {
-          console.log("parsed data is bad");
+          alert("Oops, malformed JSON.\n\n" + parsedData.value);
         }
       }
 
