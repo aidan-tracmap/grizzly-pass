@@ -27,7 +27,7 @@ const reducer = combineReducers({
 export default reducer;
 
 function title(title: ?string = null, action: Action): ?string {
-  if (action.type === "LOAD_DEMO_DATA") return "TracMap Roadmap";
+  if (action.type === "LOAD_DEMO_DATA") return "TracMap Roadmap - Completion Estimates";
   else return title;
 }
 function selectedTab(selectedTab: ?TabId = null, action: Action): ?TabId {
