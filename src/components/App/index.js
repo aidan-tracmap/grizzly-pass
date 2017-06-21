@@ -106,7 +106,6 @@ function mapDispatchToProps(
   return {
     importProject: (file: File) => dispatch(importProject(readFileAsText, file)),
     loadData: (data: Object) => {
-      console.log("Loading this sucker...");
       dispatch(loadAllData(data));
     }
   };
@@ -120,28 +119,18 @@ function handleDragOver(e: Event) {
 }
 
 function handleDrop(importFile: File => void, e: DragEvent, loadData: Object => void) {
-  console.log("file", e.dataTransfer);
   e.preventDefault();
   const dt = e.dataTransfer;
   if (dt && dt.items) {
-    console.log("got some items");
     const item = Array.prototype.find.call(
       dt.items,
       ({ kind }) => kind === "file"
     );
     if (item) {
-      console.log("Sending it off to importFile", importFile);
-      /*item.getAsString(importFile);*/
-
       const reader = new FileReader();
       reader.onload = function (e) {
-        console.log("Reader finished...");
-
         const newData = e.target.result;
-        console.log("Importing data...");
-
         var parsedData = importFile(newData);
-        console.log(parsedData.value);
 
         if (isOk(parsedData)) {
           loadData(parsedData.value);

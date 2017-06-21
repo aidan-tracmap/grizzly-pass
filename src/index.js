@@ -30,11 +30,8 @@ async function run() {
 
   const queryData = getQueryData();
   if (queryData) {
-    console.log("loading", queryData);
     const queryDataStr = JSON.stringify(queryData);
     const importDataPayload = unsafeUnwrap(importFile(queryDataStr));
-    console.log("queryData", queryData);
-    console.log("importDataPayload", importDataPayload);
     store.dispatch(loadAllData(importDataPayload));
   }
 
@@ -64,3 +61,5 @@ function getQueryData() {
     return roadmapData;
   }
 }
+
+window.getQueryData = getQueryData;
