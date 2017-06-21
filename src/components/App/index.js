@@ -148,6 +148,11 @@ function handleDrop(importFile: File => void, e: DragEvent, loadData: Object => 
         } else {
           alert("Oops, malformed JSON.\n\n" + parsedData.value);
         }
+
+        // now update the url
+        const urlEncodedState = btoa(JSON.stringify(JSON.parse(newData)));
+        window.history.pushState("", "", "?roadmap=" + urlEncodedState);
+
       }
 
       reader.readAsText(item.getAsFile());
@@ -169,3 +174,5 @@ function formatErrors(errorMessage: string | string[]) {
     </ul>
   );
 }
+
+

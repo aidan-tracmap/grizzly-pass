@@ -100,7 +100,7 @@ export function validateProject(project: any): Result<ImportProject, string> {
 function parseFile(fileContents: string): Result<any[], string> {
   try {
     const asObj = JSON.parse(fileContents);
-    console.log(asObj);
+    console.log("AS OBJ", asObj);
     return isArray(asObj) ? ok(asObj) : err("isn't a JSON array");
   } catch (e) {
     return err("is not valid JSON ... " + e);
