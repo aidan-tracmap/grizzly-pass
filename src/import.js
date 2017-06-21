@@ -60,8 +60,6 @@ export function importFile(
       labels
     }))
   )(fileContents);
-  console.log("result!!!");
-  console.log(result);
   return result;
 }
 
@@ -100,7 +98,6 @@ export function validateProject(project: any): Result<ImportProject, string> {
 function parseFile(fileContents: string): Result<any[], string> {
   try {
     const asObj = JSON.parse(fileContents);
-    console.log("AS OBJ", asObj);
     return isArray(asObj) ? ok(asObj) : err("isn't a JSON array");
   } catch (e) {
     return err("is not valid JSON ... " + e);

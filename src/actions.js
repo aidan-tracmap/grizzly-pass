@@ -5,7 +5,6 @@ import type { Project, Label, Status, TabId } from "./types";
 
 export type LoadAllData = { type: "LOAD_ALL_DATA" };
 export const loadAllData = (data: Object): LoadAllData => {
-  console.log("Created load all data action...");
   return {
     type: "LOAD_ALL_DATA",
     data
