@@ -21,6 +21,8 @@ export default function ProgressBar({ progress, status }: ProgressBarProps) {
 }
 
 function statusText(progress: number, status: Status): string {
+  if (status === "validation") return "Customer Validation";
+
   if (progress >= 100) return "Done";
 
   switch (status) {

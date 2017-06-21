@@ -1,13 +1,13 @@
 // @flow
 
-import moment from "moment";
+// import moment from "moment";
 import React from "react";
 import { connect } from "react-redux";
 import { updateProject } from "../../actions";
 import type { State } from "../../reducer";
 import { getEditable, getProject, getLabelInfo } from "../../reducer";
 import type { Project, LabelInfo } from "../../types";
-import DatePicker from "../DatePicker";
+// import DatePicker from "../DatePicker";
 import Label from "../Label";
 import ProgressBar from "../ProgressBar";
 import Selectable from "../Selectable";
@@ -51,7 +51,9 @@ export function CardPresentation({
         {renderTextElement(project, "person", readonly, updateProject)}
       </div>
       <div className="Card-date">
-        {renderDate(project, "time", readonly, updateProject)}
+        {
+          //renderDate(project, "time", readonly, updateProject)
+        }
       </div>
       {labelsDiv}
       <div className="Card-progress">
@@ -80,7 +82,7 @@ function renderTextElement(
     );
 }
 
-function renderDate(
+/*function renderDate(
   wholeProject: Project,
   attr: "time",
   readonly: boolean,
@@ -98,7 +100,7 @@ function renderDate(
         onTimeChange={time => onChange({ ...wholeProject, time })}
       />
     );
-}
+}*/
 
 function mapStateToProps(state: State, { projectId }) {
   const project = getProject(state, projectId);

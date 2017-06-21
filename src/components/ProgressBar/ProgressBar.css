@@ -5,6 +5,16 @@
   margin-top: 7px;
 }
 
+.ProgressBar::after {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  content: '';
+  border: 2px solid rgba(0,0,0,0.1);
+}
+
 .ProgressBar-text {
   position: absolute;
   width: 100%;
@@ -15,7 +25,8 @@
   font-weight: 600;
   text-transform: uppercase;
   color: #fff;
-  font-size: 13px;
+  font-size: 14px;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.28)
 }
 
 .ProgressBar-inner {
@@ -23,7 +34,11 @@
 }
 
 .isStatus-ontrack .ProgressBar-inner {
-  background: green;
+  background: #2da918;
+}
+
+.isStatus-validation .ProgressBar-inner {
+  background: #1e90ff;
 }
 
 .isStatus-atrisk .ProgressBar-inner {

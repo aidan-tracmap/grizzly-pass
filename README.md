@@ -14,7 +14,7 @@ fields are:
 - person (required, string)
 - date (required, string in YYYY-MM-DD format)
 - progress (required, number representing a percentage)
-- health (required, one of "ontrack", "atrisk", "intervention" or "onhold")
+- health (required, one of "ontrack", "atrisk", "intervention", "validation" or "onhold")
 - tags (optional, array of strings to be used as free-form tags on projects)
 
 ## Staging Server
