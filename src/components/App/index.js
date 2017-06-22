@@ -194,5 +194,13 @@ window.addEventListener('keydown', function (e) {
     document.querySelector(".App-header").style.display = "none";
     document.querySelector(".App-sideMenu").style.display = "none";
     document.querySelector(".App-footer").style.display = "none";
+
+    var appElement = document.querySelector(".App");
+    function rotateBackground(time) {
+      /*appElement.style.background = "linear-gradient(" + time * 0.3 + "deg, #5a0d82, #c31bc3, #5a0d82)";*/
+      appElement.style.background = "radial-gradient(#5a0d82, #c31bc3 " + (time * 0.3) % 300 + "%, #5a0d82)"
+      requestAnimationFrame(rotateBackground);
+    }
+    requestAnimationFrame(rotateBackground);
   }
 })
