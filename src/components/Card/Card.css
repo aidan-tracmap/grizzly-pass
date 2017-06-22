@@ -72,3 +72,17 @@
 .Card.isTentative .Card-progress {
   opacity: 0.5;
 }
+
+
+.Card.dancing {
+  animation: rotate-dance 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes rotate-dance {
+0% {
+  transform: rotate(20deg);
+}
+100% {
+  transform: rotate(-20deg);
+}
+}

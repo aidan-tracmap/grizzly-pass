@@ -169,3 +169,30 @@ function formatErrors(errorMessage: string | string[]) {
 }
 
 
+const raveColours = ["fff582", "ffb6f9", "c0ff9f", "59ffc2", "98f5ff", "d1c1ff"];
+var nextRaveColour = Math.floor(Math.random() * raveColours.length);
+function randomRaveColour() {
+  return "#" + raveColours[(nextRaveColour++) % raveColours.length];
+}
+
+const recentKeyPresses = [];
+const SECRET_DANCE_PARTY_CODE = "rave";
+window.addEventListener('keydown', function (e) {
+  recentKeyPresses.push(e.key);
+  while (recentKeyPresses.length > SECRET_DANCE_PARTY_CODE.length) {
+    recentKeyPresses.splice(0, 1);
+  }
+  if (recentKeyPresses.join('').toLowerCase() === SECRET_DANCE_PARTY_CODE) {
+    document.querySelectorAll(".Card").forEach((card, i) =>
+      setTimeout(function () {
+        card.classList.add('dancing');
+        card.classList.remove('isTentative');
+        card.style.background = randomRaveColour();
+      }, i * 50)
+    )
+    document.body.style.background = "#5a0d82";
+    document.querySelector(".App-header").style.display = "none";
+    document.querySelector(".App-sideMenu").style.display = "none";
+    document.querySelector(".App-footer").style.display = "none";
+  }
+})
