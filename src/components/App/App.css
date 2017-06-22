@@ -23,11 +23,8 @@
 }
 
 .App-footer {
-  position:fixed;
-  left: 60px;
-  right: 0;
-  bottom: 0;
   background: #f2f3f4;
+  margin-left: 80px;
 }
 
 .App-content {
@@ -43,7 +40,6 @@
 }
 
 .App-month:last-child {
-  padding-right: 0;
 }
 
 .App-monthTitle {
