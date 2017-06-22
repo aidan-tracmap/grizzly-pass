@@ -22,12 +22,14 @@ type ImportProject = {
 
 type Output = {
   title: ?string,
+  publishDate: ?number,
   projects: Project[],
   labels: Label[]
 };
 
 export function importFile(
-  fileContents: string
+  fileContents: string,
+  publishDate: ?number
 ): Result<Output, string | string[]> {
   const result = flow(
     parseFile,
@@ -44,6 +46,7 @@ export function importFile(
     map(projects => [projects, generateLabels(projects)]),
     map(([projects, labels]) => ({
       title: null,
+      publishDate: publishDate || null,
       projects: projects.map(project => {
         const { title, person, health, progress, tentative, date, tags = [] } = project;
         return {
@@ -60,6 +63,7 @@ export function importFile(
       labels
     }))
   )(fileContents);
+
   return result;
 }
 

@@ -30,8 +30,8 @@ async function run() {
 
   const queryData = getQueryData();
   if (queryData) {
-    const queryDataStr = JSON.stringify(queryData);
-    const importDataPayload = unsafeUnwrap(importFile(queryDataStr));
+    const queryDataStr = JSON.stringify(queryData.data);
+    const importDataPayload = unsafeUnwrap(importFile(queryDataStr, queryData.publishDate));
     store.dispatch(loadAllData(importDataPayload));
   }
 

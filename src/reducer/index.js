@@ -14,7 +14,8 @@ export type State = {
   +selectedTab: ?TabId,
     +projects: Project[],
       +labels: Label[],
-        +errorMessage: ?(string | string[])
+        +errorMessage: ?(string | string[]),
+          +publishDate: number
 };
 
 const reducer = combineReducers({
@@ -22,7 +23,8 @@ const reducer = combineReducers({
   selectedTab,
   projects,
   labels,
-  errorMessage
+  errorMessage,
+  publishDate
 });
 export default reducer;
 
@@ -83,6 +85,16 @@ function errorMessage(
   return errorMessage;
 }
 
+function publishDate(date: number = NaN, action: Action) {
+  switch (action.type) {
+    case "LOAD_ALL_DATA":
+      console.log("publishDate:LOAD_ALL_DATA", action.data.publishDate);
+      return action.data.publishDate || NaN;
+    default:
+      return date;
+  }
+}
+
 export function getTitle(state: State): ?string {
   return state.title;
 }
@@ -128,6 +140,12 @@ export function getErrorMessage(state: State): ?(string | string[]) {
 
 export function getSelectedTab(state: State): ?TabId {
   return state.selectedTab;
+}
+
+export function getPublishDate(state: State): ?string {
+  return state.publishDate
+    ? new moment(state.publishDate).format("Do MMMM YYYY")
+    : null;
 }
 
 export function getEditable(state: State): boolean {

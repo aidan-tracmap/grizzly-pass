@@ -130,7 +130,7 @@ function handleDrop(importFile: File => void, e: DragEvent, loadData: Object => 
       const reader = new FileReader();
       reader.onload = function (e) {
         const newData = e.target.result;
-        var parsedData = importFile(newData);
+        var parsedData = importFile(newData, Date.now());
 
         if (isOk(parsedData)) {
           loadData(parsedData.value);
@@ -139,7 +139,11 @@ function handleDrop(importFile: File => void, e: DragEvent, loadData: Object => 
         }
 
         // now update the url
-        const urlEncodedState = btoa(JSON.stringify(JSON.parse(newData)));
+        const urlPayload = {
+          publishDate: Date.now(),
+          data: JSON.parse(newData)
+        }
+        const urlEncodedState = btoa(JSON.stringify(urlPayload));
         window.history.pushState("", "", "?roadmap=" + urlEncodedState);
 
       }
