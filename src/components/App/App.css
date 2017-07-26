@@ -13,18 +13,12 @@
   z-index: 1;
 }
 
-.App-sideMenu {
-  position: fixed;
-  top: 50px;
-  left: 0;
-  bottom: 0;
-  width: 60px;
-  z-index: 1;
-}
-
 .App-footer {
-  background: #f2f3f4;
-  margin-left: 80px;
+  background: white;
+  position: fixed;
+  bottom: 0;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+  border-top-right-radius: 5px;
 }
 
 .App-content {
