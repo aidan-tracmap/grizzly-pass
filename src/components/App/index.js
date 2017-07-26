@@ -28,7 +28,7 @@ const importProject = (
 };
 
 type AppProps = {
-  projectsByMonth: { month: string, projectIds: string[] }[],
+  projectsByMonth: { year: number, data: { month: string, projectIds: string[] }[] }[],
   errorMessage: ?(string | string[]),
   selectedTab: ?TabId,
   importFile: (File) => void,
@@ -42,28 +42,40 @@ export function AppPresentation({
   importFile,
   loadData
 }: AppProps) {
-  const months = projectsByMonth.map(({ month, projectIds }) => {
-    const cards = projectIds.map(projectId => (
-      <div className="App-cardWrapper" key={projectId}>
-        <Card projectId={projectId} />
-      </div>
-    ));
+
+  window.uglyHackLoadData = loadData; // I'm sorry, Phil.
+
+  const years = projectsByMonth.map(({ year, data }) => {
+    const months = data.map(monthInfo => {
+      const cards = monthInfo.projectIds.map(projectId => (
+        <div className="App-cardWrapper" key={projectId}>
+          <Card projectId={projectId} />
+        </div>
+      ));
+      return (
+        <div key={monthInfo.month} className="App-month">
+          <h2 className="App-monthTitle">{monthInfo.month}</h2>
+          {cards}
+        </div>
+      );
+    });
+
     return (
-      <div key={month} className="App-month">
-        <h2 className="App-monthTitle">{month}</h2>
-        {cards}
+      <div className="App-year" key={year}>
+        <h2>{year || 'UNKNOWN_YEAR'}</h2>
+        <div className="App-months">
+          {months}
+        </div>
       </div>
     );
   });
 
   const hasProjects = !!projectsByMonth.length;
 
-  //const loadData = this.props.loadDataIntoStore
-
   const appContent = errorMessage != null ?
     formatErrors(errorMessage) :
-    (months.length ?
-      months :
+    (hasProjects ?
+      years :
       "Drop a roadmap JSON file here."
     );
 
@@ -114,6 +126,26 @@ function handleDragOver(e: Event) {
   e.preventDefault();
 }
 
+function handleData(newData, loadData, isDrop) {
+  var parsedData = importFile(newData, isDrop ? Date.now() : undefined);
+
+  if (isOk(parsedData)) {
+    loadData(parsedData.value);
+  } else {
+    alert("Oops, malformed JSON.\n\n" + parsedData.value);
+  }
+
+  if (isDrop) {
+    // add the data to the url
+    const urlPayload = {
+      publishDate: Date.now(),
+      data: JSON.parse(newData)
+    }
+    const urlEncodedState = btoa(JSON.stringify(urlPayload));
+    window.history.pushState("", "", "/?roadmap=" + urlEncodedState);
+  }
+}
+
 function handleDrop(importFile: File => void, e: DragEvent, loadData: Object => void) {
   e.preventDefault();
   const dt = e.dataTransfer;
@@ -126,22 +158,7 @@ function handleDrop(importFile: File => void, e: DragEvent, loadData: Object => 
       const reader = new FileReader();
       reader.onload = function (e) {
         const newData = e.target.result;
-        var parsedData = importFile(newData, Date.now());
-
-        if (isOk(parsedData)) {
-          loadData(parsedData.value);
-        } else {
-          alert("Oops, malformed JSON.\n\n" + parsedData.value);
-        }
-
-        // now update the url
-        const urlPayload = {
-          publishDate: Date.now(),
-          data: JSON.parse(newData)
-        }
-        const urlEncodedState = btoa(JSON.stringify(urlPayload));
-        window.history.pushState("", "", "?roadmap=" + urlEncodedState);
-
+        handleData(newData, loadData, true);
       }
 
       reader.readAsText(item.getAsFile());
@@ -202,5 +219,14 @@ function initRave() {
 }
 initRave();
 
+
+window.addEventListener('load', function () {
+  var roadmapData = window.getQueryData();
+  if (typeof roadmapData === "undefined") {
+    var URL_BASE = "https://s3-ap-southeast-2.amazonaws.com/tracmap/roadmap";
+    var dataUrl = URL_BASE + location.pathname + ".json";
+    fetch(dataUrl).then(x => x.text()).then(x => {
+      handleData(x, window.uglyHackLoadData);
+    });
   }
-})
+});

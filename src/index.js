@@ -62,4 +62,4 @@ function getQueryData() {
   }
 }
 
-window.getQueryData = getQueryData;
+window.getQueryData = getQueryData; // I'm sorry, Phil

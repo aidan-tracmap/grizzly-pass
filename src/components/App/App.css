@@ -29,6 +29,19 @@
   padding: 30px 30px 80px 30px;
 }
 
+.App-year > h2 {
+  color: #333;
+}
+
+.App-year:not(:last-of-type) {
+  border-right: 4px solid rgba(0, 0, 0, 0.04);
+  margin-right: 30px;
+}
+
+.App-months {
+  display:flex;
+}
+
 .App-month {
   padding-right: 30px;
 }

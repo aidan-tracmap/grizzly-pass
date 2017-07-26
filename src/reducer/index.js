@@ -6,6 +6,7 @@ import type { Action } from "../actions";
 import { projects as demoProjects, labels as demoLabels } from "../demo-data";
 import { generateLabelInfo } from "../labels";
 import type { Label, Project, LabelInfo, TabId } from "../types";
+import assert from 'assert';
 
 export type { Label, Project };
 
@@ -88,7 +89,6 @@ function errorMessage(
 function publishDate(date: number = NaN, action: Action) {
   switch (action.type) {
     case "LOAD_ALL_DATA":
-      console.log("publishDate:LOAD_ALL_DATA", action.data.publishDate);
       return action.data.publishDate || NaN;
     default:
       return date;
@@ -117,14 +117,17 @@ export function getLabelInfo(state: State, id: string): LabelInfo {
   return generateLabelInfo(state.labels)[id];
 }
 
-export function getProjectIdsByMonth(
-  state: State
+function getProjectIdsByMonthAndYear(
+  state: State,
+  year: number
 ): { month: string, projectIds: string[] }[] {
   const monthIndexes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
   return monthIndexes
     .map(monthIndex =>
       state.projects.filter(
-        project => moment(project.time).month() === monthIndex
+        project => {
+          return moment(project.time).month() === monthIndex && moment(project.time).year() === year;
+        }
       )
     )
     .filter(month => month.length > 0)
@@ -132,6 +135,31 @@ export function getProjectIdsByMonth(
       month: moment(month[0].time).format("MMMM"),
       projectIds: month.map(project => project.id)
     }));
+}
+
+export function getProjectIdsByMonth(
+  state: State
+): { year: number, data: { month: string, projectIds: string[] }[] }[] {
+  const earliestYear = state.projects.reduce((memo, project) => Math.min(memo, moment(project.time).year()), 9999);
+  const latestYear = state.projects.reduce((memo, project) => Math.max(memo, moment(project.time).year()), -9999);
+
+  if (state.projects.length > 0) {
+    assert(latestYear - earliestYear >= 0);
+  }
+
+  if (latestYear - earliestYear > 100) {
+    // This should be in the validator.
+    alert("Roadmap spans more than 100 years. Have you made a typo with a date?");
+  }
+
+  var years = []
+  for (var i = earliestYear; i <= latestYear; i++) {
+    years.push(i);
+  }
+
+  years = years.map(year => ({ year, data: getProjectIdsByMonthAndYear(state, year) }));
+
+  return years;
 }
 
 export function getErrorMessage(state: State): ?(string | string[]) {
