@@ -13,7 +13,6 @@ import type { TabId } from "../../types";
 import Card from "../Card";
 import Header from "../Header";
 import Legend from "../Legend";
-import SideMenu from "../SideMenu";
 import "./App.css";
 
 const importProject = (
@@ -74,9 +73,6 @@ export function AppPresentation({
       onDrop={e => handleDrop(importFile, e, loadData)}
       onDragOver={handleDragOver}
     >
-      <div className="App-sideMenu">
-        <SideMenu />
-      </div>
       <div className="App-header">
         <Header />
       </div>
