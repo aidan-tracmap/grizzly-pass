@@ -65,12 +65,16 @@
 
 
 .Card.isTentative {
-  border: 2px dashed rgba(0,0,0,0.2);
+  border: 2px dashed rgba(0,0,0,0.15);
   background: none;
   box-shadow: none;
 }
-.Card.isTentative .Card-progress {
-  opacity: 0.5;
+
+.isTentative .Card-progress,
+.isTentative .Card-title,
+.isTentative .Card-person,
+.isTentative .Card-labels {
+    opacity: 0.5;
 }
 
 

@@ -24,4 +24,6 @@
 
 .Legend-labelTitle {
   padding: 0 5px;
+  font-weight: 600;
+  color: #444;
 }
