@@ -222,7 +222,7 @@ initRave();
 
 window.addEventListener('load', function () {
   var roadmapData = window.getQueryData();
-  if (typeof roadmapData === "undefined") {
+  if (typeof roadmapData === "undefined" && location.pathname.length > 1) {
     var URL_BASE = "https://s3-ap-southeast-2.amazonaws.com/tracmap/roadmap";
     var dataUrl = URL_BASE + location.pathname + ".json";
     fetch(dataUrl).then(x => x.text()).then(x => {
