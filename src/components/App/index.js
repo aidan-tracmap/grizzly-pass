@@ -72,11 +72,13 @@ export function AppPresentation({
 
   const hasProjects = !!projectsByMonth.length;
 
+  const isBlank = location.pathname.length <= 1;
+
   const appContent = errorMessage != null ?
     formatErrors(errorMessage) :
     (hasProjects ?
       years :
-      "Drop a roadmap JSON file here."
+      isBlank ? "Drop a roadmap JSON file here." : ""
     );
 
   return (
