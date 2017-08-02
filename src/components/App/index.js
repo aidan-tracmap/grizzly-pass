@@ -224,7 +224,11 @@ window.addEventListener('load', function () {
   var roadmapData = window.getQueryData();
   if (typeof roadmapData === "undefined" && location.pathname.length > 1) {
     var URL_BASE = "https://s3-ap-southeast-2.amazonaws.com/tracmap/roadmap";
-    var dataUrl = URL_BASE + location.pathname + ".json";
+
+    // This cache buster only works for S3. http://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectGET.html?r=5225
+    var cacheBust = "?cache-buster=" + Date.now();
+
+    var dataUrl = URL_BASE + location.pathname + ".json" + cacheBust;
     fetch(dataUrl).then(x => x.text()).then(x => {
       handleData(x, window.uglyHackLoadData);
     });
