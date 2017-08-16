@@ -134,7 +134,7 @@ function handleData(newData, loadData, isDrop) {
   if (isOk(parsedData)) {
     loadData(parsedData.value);
   } else {
-    alert("Oops, malformed JSON.\n\n" + parsedData.value);
+    alert("Sorry, the format of the plan file is incorrect.\n\n" + parsedData.value);
   }
 
   if (isDrop) {
