@@ -30,7 +30,6 @@ describe("status text", () => {
   const statusText = [
     "On Track",
     "At Risk",
-    "Intervention Required",
     "On Hold"
   ];
 
