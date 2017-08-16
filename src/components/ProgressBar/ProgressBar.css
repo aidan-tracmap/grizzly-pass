@@ -33,22 +33,25 @@
   height: 100%;
 }
 
-.isStatus-ontrack .ProgressBar-inner {
-  background: #2da918;
+.isStatus-validation .ProgressBar-inner,
+.isStatus-ontrack .ProgressBar-inner{
+  background: #1e90ff;
 }
 
-.isStatus-validation .ProgressBar-inner {
-  background: #1e90ff;
+.isStatus-ontrack.isComplete .ProgressBar-inner,
+.isStatus-ready .ProgressBar-inner
+{
+  background: #2da918;
 }
 
 .isStatus-atrisk .ProgressBar-inner {
   background: orange;
 }
 
-.isStatus-intervention .ProgressBar-inner {
-  background: red;
-}
-
 .isStatus-onhold .ProgressBar-inner {
   background: #555;
+}
+
+.isStatus-blocked .ProgressBar-inner {
+    background: #ffb138;
 }

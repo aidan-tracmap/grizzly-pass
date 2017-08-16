@@ -10,10 +10,14 @@ type ProgressBarProps = {
 };
 
 export default function ProgressBar({ progress, status }: ProgressBarProps) {
-  const className = ["ProgressBar", `isStatus-${status}`].join(" ");
+  const className = ["ProgressBar", `isStatus-${status}`];
+
+  if (status == "ontrack" && progress >= 100) {
+    className.push("isComplete");
+  }
 
   return (
-    <div className={className}>
+    <div className={className.join(" ")}>
       <div className="ProgressBar-text">{statusText(progress, status)}</div>
       <div className="ProgressBar-inner" style={{ width: `${progress}%` }} />
     </div>
@@ -21,9 +25,8 @@ export default function ProgressBar({ progress, status }: ProgressBarProps) {
 }
 
 function statusText(progress: number, status: Status): string {
-  if (status === "validation") return "Customer Validation";
 
-  if (progress >= 100) return "Done";
+  if (progress >= 100 && status == "ontrack") return "Done";
 
   switch (status) {
     case "ontrack":
@@ -34,6 +37,14 @@ function statusText(progress: number, status: Status): string {
       return "Intervention Required";
     case "onhold":
       return "On Hold";
+    case "blocked":
+      return "Blocked";
+    case "ready":
+      return "Ready For Release";
+    case "validation":
+      return "Customer Validation";
+    case "ready":
+      return "Ready For Release";
     default:
       throw new Error(`Invalid status prop: ${status}`);
   }

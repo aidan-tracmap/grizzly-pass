@@ -1,7 +1,7 @@
 // @flow
 
-export const statusIds = ["validation", "ontrack", "atrisk", "intervention", "onhold"];
-export type Status = "validation" | "ontrack" | "atrisk" | "intervention" | "onhold";
+export const statusIds = ["validation", "ontrack", "atrisk", "onhold", "blocked", "ready"];
+export type Status = "validation" | "ontrack" | "atrisk" | "onhold" | "blocked" | "ready";
 
 export const tabIds = ["edit"];
 export type TabId = "edit";
