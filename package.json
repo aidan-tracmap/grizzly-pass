@@ -46,7 +46,7 @@
   "scripts": {
     "start": "npm-run-all -p watch-css start-js",
     "start-js": "react-scripts start",
-    "build": "npm run build-css && cross-env PUBLIC_URL=/ react-scripts build && ncp CNAME.staging.txt build/CNAME",
+    "build": "npm run build-css && cross-env PUBLIC_URL=/ react-scripts build && ncp CNAME.staging.txt build/CNAME && ncp build/index.html build/200.html",
     "build-production": "npm run build-css && cross-env PUBLIC_URL=/ react-scripts build && ncp CNAME.prod.txt build/CNAME",
     "test": "react-scripts test --collectCoverageFrom=src/**/*.js --collectCoverageFrom=!src/**/*.stories.js",
     "storybook": "start-storybook -p 9001 -c .storybook",
