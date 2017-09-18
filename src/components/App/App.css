@@ -13,12 +13,24 @@
   z-index: 1;
 }
 
+@media print {
+  .App-header {
+    position: absolute;
+  }
+}
+
 .App-footer {
   background: white;
   position: fixed;
   bottom: 0;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
   border-top-right-radius: 5px;
+}
+
+@media print {
+  .App-footer {
+    position: absolute;
+  }
 }
 
 .App-content {
