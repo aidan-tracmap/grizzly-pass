@@ -8,7 +8,51 @@
 </head>
 
 <body>
+
     <div id="root"></div>
+
+    <!-- Global Site Tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-58509407-3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments) };
+        gtag('js', new Date());
+
+        gtag('config', 'UA-58509407-3');
+    </script>
+
+    <script>
+        // Setup print tracking
+        (function () {
+            var beforePrint = function () {
+                console.log("Before print.");
+                gtag('event', 'print', {
+                    'event_category': 'before'
+                });
+            };
+            var afterPrint = function () {
+                console.log("After print.");
+                gtag('event', 'print', {
+                    'event_category': 'after'
+                });
+            };
+
+            if (window.matchMedia) {
+                var mediaQueryList = window.matchMedia('print');
+                mediaQueryList.addListener(function (mql) {
+                    if (mql.matches) {
+                        beforePrint();
+                    } else {
+                        afterPrint();
+                    }
+                });
+            }
+
+            window.onbeforeprint = beforePrint;
+            window.onafterprint = afterPrint;
+        })();
+    </script>
+
 </body>
 
 </html>
