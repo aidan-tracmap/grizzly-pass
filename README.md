@@ -10,7 +10,7 @@ fields are:
 - person (required, string)
 - date (required, string in YYYY-MM-DD format)
 - progress (required, number representing a percentage)
-- health (required, one of "ontrack", "atrisk", "intervention", "validation", "onhold", "blocked", or "ready")
+- health (required, one of "ontrack", "atrisk", "validation", "onhold", "blocked", or "ready")
 - tags (optional, array of strings to be used as free-form tags on projects)
 - tentative (optional, boolean)
 
