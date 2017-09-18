@@ -1,6 +1,9 @@
 .Logo {
   background: #c3d945;
-  color: #fff;
+  background-image: url(/logo.svg);
+
+  color: transparent; /* Hide the "TM" text */
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -8,6 +11,4 @@
   font-size: 23px;
   height: 100%;
 
-  font-family: "AntiqueOliveNord";
-  font-weight: normal;
 }
