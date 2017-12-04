@@ -3,13 +3,14 @@
 import type { Label, LabelInfo } from "./types";
 
 const colours = [
-  "#EF5350",
-  "#7E57C2",
-  "#78909C",
-  "#EC407A",
-  "#5C6BC0",
-  "#8D6E63",
-  "#AB47BC"
+  "#D55E00",
+  "#0072B2",
+  "#009E73",
+  "#F0E442",
+  "#56B4E9",
+  "#CC79A7",
+  "#999999",
+  "#E69F00",
 ];
 
 export function maxLabels() {
@@ -25,7 +26,7 @@ export function generateLabelInfo(labels: Label[]): { [string]: LabelInfo } {
           initial: (sharesFirstLetter(labels, label)
             ? label.title.substr(0, 2)
             : label.title.substr(0, 1)).toUpperCase(),
-          colour: colours[i],
+          colour: colours[i % colours.length],
           title: label.title
         }
       }),
